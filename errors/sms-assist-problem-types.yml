@@ -1,0 +1,45 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.lessen.com/docs/#/client/postmanTesting/postmanTesting
+format: graphql-errors
+envelope:
+  description: >-
+    GraphQL error responses return an `errors[]` array alongside `data: null`.
+    Each error carries `message`, optional `locations[]` (line/column) and
+    `path[]`, and an `extensions` object with a machine-readable `code` and a
+    `codes[]` array. Transport-level auth failures return HTTP 401.
+  example:
+    errors:
+    - message: Error trying to resolve field 'contactSMS'.
+      locations: [{line: 3, column: 5}]
+      path: [communication, contactSMS]
+      extensions:
+        code: INVALID_OPERATION
+        codes: [INVALID_OPERATION]
+    data: null
+problems:
+- code: INVALID_OPERATION
+  channel: graphql-extensions
+  title: Invalid operation
+  description: >-
+    The requested field/operation could not be resolved for the given input
+    (e.g. an invalid business identifier such as "Invalid WoId").
+  remediation: Verify the operation name and input identifiers (woId, etc.).
+- status: 401
+  channel: http
+  title: Unauthorized
+  description: >-
+    Missing, invalid, or expired bearer access_token. Unauthorized calls fail
+    with a 401 Unauthorized error.
+  remediation: >-
+    Obtain a fresh access_token from the environment /token endpoint via HTTP
+    Basic Auth and send it as the bearer token; regenerate when `expires_in`
+    passes.
+- status: 404
+  channel: http
+  title: Not found / cross-tenant hidden
+  description: >-
+    Vendor message-detail and similar tenant-scoped endpoints return a uniform
+    404 when the referenced resource does not belong to the calling affiliate,
+    preventing cross-tenant data exposure.
+  remediation: Only request resources owned by the authenticated tenant/affiliate.

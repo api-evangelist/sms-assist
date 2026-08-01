@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: searched
+source: live probes of /.well-known/* on Lessen (SMS Assist) hosts
+notes: >-
+  Probed the developer portal, both GraphQL API hosts, and the marketing host.
+  No /.well-known discovery documents are published (no security.txt, no OIDC or
+  OAuth authorization-server metadata, no api-catalog, no ai-plugin). The
+  authenticated OIDC endpoint under /one-graph-client returns 401 rather than a
+  discovery document. Absence recorded as valid data.
+hosts:
+- host: https://developers.lessen.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://meshlive.lessen.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /one-graph-client/.well-known/openid-configuration, status: 401}
+- host: https://www.lessen.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}

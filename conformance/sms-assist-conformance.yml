@@ -1,0 +1,31 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.lessen.com/docs/
+standards:
+- id: graphql
+  conforms: true
+  evidence: One Open API v2 is a GraphQL API (queries/mutations, GraphQL error envelope, GraphiQL + Voyager).
+- id: oauth2
+  conforms: partial
+  evidence: >-
+    Docs reference OAuth 2.0 as the auth protocol; implemented as HTTP Basic Auth
+    exchange for a bearer access_token with expires_in. No published OIDC/OAuth
+    discovery metadata.
+- id: scim-2.0
+  conforms: true
+  evidence: SCIM 2.0 provisioning for Client Portal users via Okta, OneLogin, Azure AD.
+- id: sso-saml-oidc
+  conforms: true
+  evidence: SSO documented for Client Portal and Resident Portal (Azure AD, Okta, OneLogin).
+- id: webhooks-hmac
+  conforms: true
+  evidence: Webhook deliveries signed with a shared Secret (Application Id + Secret), optional JWT Bearer auth.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use the GraphQL errors[] envelope, not application/problem+json.
+compliance_program:
+  published: false
+  notes: >-
+    No public trust center, certifications, or compliance program page (SOC 2 /
+    ISO 27001 / PCI / HIPAA) was found on the developer portal or lessen.com at
+    probe time. No Compliance pointer emitted.

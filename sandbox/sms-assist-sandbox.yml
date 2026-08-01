@@ -1,0 +1,38 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.lessen.com/docs/#/client/environment/client
+description: >-
+  Lessen provides two completely isolated environments, each requiring a
+  separate developer account: a Sandbox (Stage) testing environment and
+  Production. All testing must be done in Sandbox before publishing. No shared
+  or "magic" test data values are published; test data is created per sandbox
+  account. Vendor paged-list APIs exclude test locations by default
+  (is_test_data_excluded).
+environments:
+- name: sandbox
+  alias: stage
+  base: https://meshstage.lessen.com
+  client_graphql: https://meshstage.lessen.com/one-graph-client/graphql
+  vendor_graphql: https://meshstage.lessen.com/one-graph-vendor/graphql
+  client_token: https://meshstage.lessen.com/one-graph-client/token
+  vendor_token: https://meshstage.lessen.com/one-graph-vendor/token
+  graphiql: https://meshstage.lessen.com/one-graph-client/ui/graphiql
+  voyager: https://meshstage.lessen.com/one-graph-client/ui/voyager
+  sandbox_portal: https://meshstage.lessen.com/developers-site/
+- name: dev
+  base: https://meshdev.lessen.com
+  client_token: https://meshdev.lessen.com/one-graph-client/token
+- name: production
+  base: https://meshlive.lessen.com
+  client_graphql: https://meshlive.lessen.com/one-graph-client/graphql
+  vendor_graphql: https://meshlive.lessen.com/one-graph-vendor/graphql
+  client_token: https://meshlive.lessen.com/one-graph-client/token
+  vendor_token: https://meshlive.lessen.com/one-graph-vendor/token
+tooling:
+  graphiql: Interactive schema explorer / query IDE (password login).
+  voyager: Visual GraphQL schema/relationship explorer.
+  postman: >-
+    Documented Postman flow — POST Basic Auth to /token, store access_token as a
+    {{MeshToken}} environment variable, reuse as bearer on GraphQL requests. No
+    public Postman workspace/collection URL is published.
+test_values: []

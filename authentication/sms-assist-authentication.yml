@@ -1,0 +1,51 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.lessen.com/docs/#/client/authentication/client
+docs:
+- https://developers.lessen.com/docs/#/client/authentication/client
+- https://developers.lessen.com/docs/#/vendor/authentication/vendor
+summary:
+  types: [http, oauth2]
+  api_key_in: []
+  oauth2_flows: [clientCredentials]
+  model: >-
+    Token-based (bearer) authentication. Callers exchange HTTP Basic Auth
+    credentials (client-specific username/password issued per developer account
+    and environment) at a /token endpoint for a short-lived bearer access_token,
+    then send that token on every GraphQL request. Documentation notes OAuth 2.0
+    is the underlying protocol. Unauthorized calls return 401.
+schemes:
+- name: BasicAuthTokenExchange
+  type: http
+  scheme: basic
+  description: >-
+    HTTP Basic Auth (username + password) presented to the environment /token
+    endpoint to obtain an access_token. Client and Vendor surfaces have separate
+    credentials and separate token endpoints.
+  token_endpoints:
+    client:
+      stage: https://meshstage.lessen.com/one-graph-client/token
+      dev: https://meshdev.lessen.com/one-graph-client/token
+      production: https://meshlive.lessen.com/one-graph-client/token
+    vendor:
+      stage: https://meshstage.lessen.com/one-graph-vendor/token
+      production: https://meshlive.lessen.com/one-graph-vendor/token
+- name: BearerToken
+  type: http
+  scheme: bearer
+  bearerFormat: access_token
+  description: >-
+    Bearer access_token returned by the /token endpoint, sent on every GraphQL
+    request. Expires after the period given by the response `expires_in`
+    property (Unix epoch time); regenerate by repeating the Basic Auth exchange.
+webhook_auth:
+  description: >-
+    Outbound webhook deliveries are secured per subscription with an Application
+    Id and a shared Secret (HMAC signing key), and optionally JWT Bearer Token
+    authentication against the subscriber's endpoint (added Oct 2025). Custom
+    header injection and per-endpoint test-connection validation are supported.
+sso:
+  description: >-
+    Client Portal and Resident Portal support SSO and SCIM 2.0 user
+    provisioning. Documented identity providers: Okta, OneLogin, and Azure AD.
+  docs: https://developers.lessen.com/docs/#/client/sso/overview

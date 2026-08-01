@@ -1,0 +1,51 @@
+# SMS Assist (Lessen) — One Open API v2
+
+> SMS Assist, now Lessen, runs the "One" Platform for facilities maintenance, repair, and work-order management across residential and commercial properties. The One Open API v2 is a GraphQL API split into a Client surface (create/track reactive and recurrent work orders, residents, locations, invoices, proposals, Turn/Reno projects) and a Vendor surface (assets, communications, messages, work orders for affiliate technicians), with a rich webhook event catalog, SSO/SCIM, and isolated sandbox and production environments. Legacy REST v1 and Affiliate API v1 were sunset in favor of v2 GraphQL.
+
+## APIs
+- [One Open API v2 - Client (GraphQL)](https://meshlive.lessen.com/one-graph-client/graphql): Client work-order, invoice, proposal, resident, location, and Turn/Reno operations.
+- [One Open API v2 - Vendor (GraphQL/HTTP)](https://meshlive.lessen.com/one-graph-vendor/graphql): Vendor/affiliate asset, communication, and work-order operations.
+
+## Docs
+- [Developer Portal](https://developers.lessen.com/)
+- [Documentation home](https://developers.lessen.com/docs/)
+- [Client API Overview](https://developers.lessen.com/docs/#/client/overview)
+- [Vendor API Overview](https://developers.lessen.com/docs/#/vendor/overview)
+- [Authentication (Client)](https://developers.lessen.com/docs/#/client/authentication/client)
+- [Authentication (Vendor)](https://developers.lessen.com/docs/#/vendor/authentication/vendor)
+- [Environments](https://developers.lessen.com/docs/#/client/environment/client)
+- [About Webhooks](https://developers.lessen.com/docs/#/client/guides/webhook/about-webhooks)
+- [Webhook Event Topics v2](https://developers.lessen.com/docs/#/client/guides/webhook/webhooks-events-v2)
+- [SSO & SCIM](https://developers.lessen.com/docs/#/client/sso/overview)
+- [Client Release Notes](https://developers.lessen.com/docs/#/client/releaseNotes/client)
+- [Vendor Release Notes](https://developers.lessen.com/docs/#/vendor/releaseNotes/vendor)
+
+## Auth
+- Token-based bearer auth. POST HTTP Basic Auth credentials to the environment /token endpoint to obtain an access_token, then send it as a bearer token on every GraphQL request. Tokens expire per `expires_in` (Unix epoch). Unauthorized calls return 401.
+- Client token: https://meshlive.lessen.com/one-graph-client/token
+- Vendor token: https://meshlive.lessen.com/one-graph-vendor/token
+
+## Environments
+- Sandbox/Stage: https://meshstage.lessen.com
+- Production: https://meshlive.lessen.com
+- GraphiQL explorer: https://meshstage.lessen.com/one-graph-client/ui/graphiql
+- Voyager schema map: https://meshstage.lessen.com/one-graph-client/ui/voyager
+
+## Operations
+- Status: https://status.lessen.com/
+- Blog / Resources: https://www.lessen.com/resources
+- Terms of Use: https://www.lessen.com/legal/terms-of-use
+- Privacy Policy: https://www.lessen.com/legal/privacy-policy
+
+## Artifacts
+- Authentication: authentication/sms-assist-authentication.yml
+- Conventions: conventions/sms-assist-conventions.yml
+- Lifecycle: lifecycle/sms-assist-lifecycle.yml
+- Changelog: changelog/sms-assist-changelog.yml
+- Errors: errors/sms-assist-problem-types.yml
+- Webhooks: asyncapi/sms-assist-webhooks.yml
+- Sandbox: sandbox/sms-assist-sandbox.yml
+- Data model: data-model/sms-assist-data-model.yml
+- Conformance: conformance/sms-assist-conformance.yml
+- MCP (candidate): mcp/sms-assist-mcp.yml
+- Agent skills: skills/_index.yml

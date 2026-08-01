@@ -1,0 +1,53 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: >-
+  Derived from documented One Open API v2 GraphQL operations
+  (https://developers.lessen.com/docs/). No official hosted/remote MCP server
+  was found for Lessen/SMS Assist.
+server:
+  name: sms-assist
+  transport: http
+  url: null
+notes: >-
+  Candidate tool surface mapped from documented GraphQL queries/mutations on the
+  Client and Vendor surfaces. Names mirror documented operations; a real MCP
+  server would wrap the /one-graph-client and /one-graph-vendor GraphQL
+  endpoints with bearer-token auth.
+tools:
+- name: create_reactive_work_order
+  description: Create a residential/commercial reactive work order (and service request).
+  source_operation: client createReactiveWorkOrder
+- name: update_reactive_work_order
+  description: Update fields on a reactive work order (e.g. woRefNum, access info).
+  source_operation: client updateReactiveWorkOrder
+- name: query_reactive_work_orders
+  description: Query reactive work orders with filtering, sorting, and pagination.
+  source_operation: client reactiveWorkOrders
+- name: create_recurrent_work_order
+  description: Create a recurrent work order.
+  source_operation: client createWorkOrder
+- name: query_recurrent_work_orders
+  description: Query recurrent work orders with filter/sort/pagination.
+  source_operation: client recurrentWorkOrders
+- name: query_invoices
+  description: Query work order invoices (and batch invoices), limited to last 2 years.
+  source_operation: client invoices
+- name: query_work_order_proposals
+  description: Query work order proposals; approve or decline.
+  source_operation: client workOrderProposals
+- name: query_service_coverage
+  description: Query service coverage for a location/service.
+  source_operation: client serviceCoverage
+- name: send_communication_sms
+  description: Send an SMS/message on a work order.
+  source_operation: client communication.contactSMS
+- name: get_location_asset_details
+  description: Retrieve location asset details (vendor).
+  source_operation: vendor GET /asset/location-asset/{assetId}/details
+- name: get_location_asset_paged_list
+  description: Retrieve a paged list of location assets for a client (vendor).
+  source_operation: vendor GET /asset/location-asset/paged-list
+- name: get_message_detail
+  description: Retrieve a single IM message by messageId (vendor, tenant-scoped).
+  source_operation: vendor GET /api/v2.0/communication/messages/{messageId}

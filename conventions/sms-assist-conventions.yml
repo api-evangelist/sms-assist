@@ -1,0 +1,62 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.lessen.com/docs/
+docs: https://developers.lessen.com/docs/#/client/overview
+api_style:
+  protocol: GraphQL
+  version: Open API v2.0
+  description: >-
+    The One Open API v2 is a GraphQL API (the v1 REST API was rewritten to
+    GraphQL). Operations are namespaced GraphQL queries and mutations (for
+    example `communication.contactSMS`, `recurrentWorkOrders`, `createWorkOrder`,
+    `updateWorkOrder`). Responses are JSON in the standard GraphQL shape
+    (`{ "data": {...} }` or `{ "errors": [...], "data": null }`). The Vendor
+    surface additionally exposes REST-style resource endpoints (e.g.
+    `GET /api/v2.0/communication/messages/{messageId}`).
+  endpoints:
+    client_graphql: https://meshlive.lessen.com/one-graph-client/graphql
+    vendor_graphql: https://meshlive.lessen.com/one-graph-vendor/graphql
+authentication:
+  style: bearer-token-via-basic-auth
+  ref: authentication/sms-assist-authentication.yml
+pagination:
+  style: query-arguments
+  description: >-
+    List queries (e.g. `recurrentWorkOrders`, reactive work order queries)
+    support filtering, sorting, and pagination arguments. Filters seen in docs
+    include ids, woIds, sentTime, serviceRequestIds; sorting by sentTime and id.
+    Vendor paged-list endpoints (e.g. Get Location Asset Paged List) apply hidden
+    default filters when arguments are omitted (active-only, Facilities service
+    categories, test data excluded).
+idempotency:
+  supported: false
+  notes: >-
+    No client-supplied idempotency key is documented. GraphQL mutations are the
+    write path; the docs do not publish an Idempotency-Key header contract, so no
+    Idempotency pointer is emitted.
+error_envelope:
+  format: graphql-errors
+  description: >-
+    Errors return a GraphQL `errors[]` array with `message`, `locations`,
+    `path`, and an `extensions` object carrying a machine-readable `code` and a
+    `codes[]` array (e.g. INVALID_OPERATION). Authentication failures return HTTP
+    401. See errors/sms-assist-problem-types.yml.
+  ref: errors/sms-assist-problem-types.yml
+webhooks:
+  description: >-
+    Account-configured webhooks deliver near-real-time events for work orders,
+    invoices, proposals, communications, and Turn/Reno projects. Deliveries
+    carry an Application Id + Secret (HMAC) and optional JWT Bearer auth, plus
+    retry/staleness headers `X-Lessen-IsRetry` and `X-Lessen-Triggered-At`.
+    Events are additive-only and forward-compatible (ignore unknown fields).
+  ref: asyncapi/sms-assist-webhooks.yml
+versioning:
+  scheme: path-namespace
+  current: v2 (GraphQL)
+  notes: >-
+    Surfaces are namespaced at /one-graph-client and /one-graph-vendor. Legacy
+    REST v1 and Affiliate API v1 were sunset. Webhook event schemas follow an
+    additive, backward-compatible policy. See lifecycle/sms-assist-lifecycle.yml.
+environments:
+  sandbox: https://meshstage.lessen.com
+  production: https://meshlive.lessen.com

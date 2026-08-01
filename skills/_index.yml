@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: generated
+source: https://developers.lessen.com/docs/ (grounded in documented v2 GraphQL operations)
+notes: >-
+  Generated operating instructions for marquee Lessen One Platform flows.
+  Operation names are taken verbatim from the documented Client/Vendor release
+  notes and guides. No provider-published Agent Skills / AGENTS.md were found.
+skills:
+- file: sms-assist-create-and-track-work-order.md
+  name: Create and track a reactive work order
+  api: One Open API v2 - Client
+  operations: [createReactiveWorkOrder, updateReactiveWorkOrder, reactiveWorkOrders]
+- file: sms-assist-manage-recurrent-work-orders.md
+  name: Create and query recurrent work orders
+  api: One Open API v2 - Client
+  operations: [createWorkOrder, updateWorkOrder, recurrentWorkOrders]
+- file: sms-assist-invoices-and-proposals.md
+  name: Review proposals and reconcile invoices
+  api: One Open API v2 - Client
+  operations: [workOrderProposals, invoices]
+- file: sms-assist-vendor-assets.md
+  name: Look up vendor location assets
+  api: One Open API v2 - Vendor
+  operations: [getLocationAssetPagedList, getLocationAssetDetails, getLocationAssetDetailsByWorkOrder]

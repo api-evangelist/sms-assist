@@ -1,0 +1,67 @@
+generated: '2026-07-21'
+method: searched
+source: https://developers.lessen.com/docs/#/client/guides/webhook/webhooks-events-v2
+spec_type: Webhooks
+description: >-
+  Lessen One Platform webhook event catalog (v2.0, in active development).
+  Webhooks are configured per account in the Developer Portal with a required
+  endpoint, Application Id, and Secret (HMAC signing key); JWT Bearer auth and
+  custom headers are supported. Deliveries include retry/staleness headers
+  `X-Lessen-IsRetry` and `X-Lessen-Triggered-At`. Event schemas are additive and
+  forward-compatible — consumers must ignore unknown fields. Topic IDs below are
+  captured verbatim from the dated release notes; the live topics page is the
+  source of truth.
+delivery:
+  transport: http-webhook
+  auth: [hmac-secret, jwt-bearer]
+  signing: Application Id + Secret (encryption key)
+  headers:
+    X-Lessen-IsRetry: Set when the delivery is a retry.
+    X-Lessen-Triggered-At: Original trigger timestamp for stale-request detection.
+subjects:
+- surface: client
+  domain: Communication
+  events:
+  - {topic_id: 25, name: Send to Client}
+  - {topic_id: 26, name: Send from resident}
+- surface: client
+  domain: Service Request
+  events:
+  - {topic_id: 74, name: Status Updated}
+  - {topic_id: 90, name: Service Request Work Order Created}
+- surface: client
+  domain: Label
+  events:
+  - {topic_id: 80, name: Label Added}
+  - {topic_id: 81, name: Label Deleted}
+- surface: client
+  domain: Recurrent Work Order
+  events:
+  - {topic_id: 300, name: Created}
+  - {topic_id: 302, name: Status Changed}
+  - {topic_id: 303, name: Schedule Changed}
+  - {topic_id: 304, name: Service Combination Updated}
+  - {topic_id: 305, name: Check-In/Out Time Changed}
+- surface: client
+  domain: Turn & Reno Project
+  events:
+  - {topic_id: 202, name: Project Status Updated}
+  - {topic_id: 400, name: Project Comment Created}
+  - {topic_id: 450, name: Project Message Created}
+- surface: client
+  domain: Reactive Work Order (v1 topics)
+  events:
+  - {name: Attachment Created}
+  - {name: Rating Created}
+  - {name: Rating Updated}
+  - {name: Service Combination Updated}
+  - {name: CheckInOutTime Changed}
+- surface: vendor
+  domain: Communication
+  events:
+  - {topic_id: 1, name: New Message}
+- surface: vendor
+  domain: Reactive Work Order
+  events:
+  - {topic_id: 114, name: Asset Added}
+  - {topic_id: 115, name: Asset Removed}

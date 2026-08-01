@@ -1,0 +1,56 @@
+generated: '2026-07-21'
+method: derived
+source: https://developers.lessen.com/docs/ (client + vendor guides and release notes)
+notes: >-
+  Derived from the documented GraphQL guides and release notes (no downloadable
+  schema; introspection requires authentication). Entities and relationships
+  reflect the domain vocabulary surfaced across the Client and Vendor guides.
+entities:
+- name: Client
+  description: Property owner/manager account (residential, commercial, Turn/Reno).
+- name: Location
+  description: A property/site (residential SFR/MFR or commercial), with move-out/scheduled dates.
+- name: Resident
+  description: A tenant associated with a residential location; can be activated/deactivated.
+- name: Employee
+  description: Vendor/affiliate staff member.
+- name: ServiceRequest
+  description: Intake request that can spawn a work order.
+- name: ReactiveWorkOrder
+  description: Reactive maintenance/repair work order (the core object), with statuses, ratings, cancel reasons.
+- name: RecurrentWorkOrder
+  description: Scheduled recurring work order with schedule and service combination.
+- name: TurnRenoProject
+  description: Turn/renovation project with scopes (original, change order, punch list) and NTP approvals.
+- name: Proposal
+  description: Work order proposal (with purpose, smeNotes) requiring client approve/decline.
+- name: Invoice
+  description: Work order or batch invoice (invoiceTotal, approveNTE, purpose); queryable within 2 years.
+- name: Asset
+  description: Service asset and location asset (equipment, warranty, uptime, qrCode) tied to locations/work orders.
+- name: Communication
+  description: Messages/notes (IM) between clients, residents, and Lessen, with attachments and recipients.
+- name: Attachment
+  description: Files attached to work orders, proposals, invoices, and projects.
+- name: Rating
+  description: Work order rating record.
+- name: Label
+  description: Tag applied to a work order.
+- name: Webhook
+  description: Account-configured event subscription (endpoint, Application Id, Secret, topics).
+relationships:
+- {from: ServiceRequest, type: has_many, to: ReactiveWorkOrder, via: serviceRequestIds}
+- {from: ReactiveWorkOrder, belongs_to: Location, via: locationNumber}
+- {from: RecurrentWorkOrder, belongs_to: Location, via: locationNumber}
+- {from: ReactiveWorkOrder, type: has_many, to: Proposal, via: woId}
+- {from: ReactiveWorkOrder, type: has_many, to: Invoice, via: woId}
+- {from: ReactiveWorkOrder, type: has_many, to: Attachment, via: woId}
+- {from: ReactiveWorkOrder, type: has_many, to: Communication, via: woId}
+- {from: ReactiveWorkOrder, type: has_many, to: Rating, via: woId}
+- {from: ReactiveWorkOrder, type: has_many, to: Asset, via: workOrderId}
+- {from: ReactiveWorkOrder, type: has_many, to: Label, via: woId}
+- {from: Location, type: has_many, to: Resident, via: locationNumber}
+- {from: Location, type: has_many, to: Asset, via: location}
+- {from: TurnRenoProject, type: has_many, to: Attachment, via: projectId}
+- {from: Communication, type: has_many, to: Attachment, via: messageId}
+- {from: Webhook, type: has_many, to: 'Event Topic', via: topicId}
