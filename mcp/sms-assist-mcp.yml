@@ -1,19 +1,15 @@
 generated: '2026-07-21'
 method: derived
 status: candidate
-source: >-
-  Derived from documented One Open API v2 GraphQL operations
-  (https://developers.lessen.com/docs/). No official hosted/remote MCP server
-  was found for Lessen/SMS Assist.
+source: Derived from documented One Open API v2 GraphQL operations (https://developers.lessen.com/docs/).
+  No official hosted/remote MCP server was found for Lessen/SMS Assist.
 server:
   name: sms-assist
   transport: http
   url: null
-notes: >-
-  Candidate tool surface mapped from documented GraphQL queries/mutations on the
-  Client and Vendor surfaces. Names mirror documented operations; a real MCP
-  server would wrap the /one-graph-client and /one-graph-vendor GraphQL
-  endpoints with bearer-token auth.
+notes: Candidate tool surface mapped from documented GraphQL queries/mutations on the Client and Vendor
+  surfaces. Names mirror documented operations; a real MCP server would wrap the /one-graph-client and
+  /one-graph-vendor GraphQL endpoints with bearer-token auth.
 tools:
 - name: create_reactive_work_order
   description: Create a residential/commercial reactive work order (and service request).
@@ -51,3 +47,9 @@ tools:
 - name: get_message_detail
   description: Retrieve a single IM message by messageId (vendor, tenant-scoped).
   source_operation: vendor GET /api/v2.0/communication/messages/{messageId}
+deployment:
+  mode: none
+  verified: derived
+  tools: 12
+  checked: '2026-08-12'
+  source: catalog MCP census
